@@ -18,6 +18,7 @@ public class Compra extends Thread{
     @Override
     public void run() {
         Login();
+        compraBilhete();
         try {
             semaforo.acquire();
             validacao();
@@ -55,12 +56,12 @@ public class Compra extends Thread{
     private void validacao() {
         try {
             semaforo.acquire();
-            int buy = (int) ((Math.random() * maxIngresso) + minIngresso);
+            int buy = (int) ((Math.random() * this.maxIngresso) + this.minIngresso);
             if (ingressos > 0 && buy <= ingressos) {
 
-                ingressos -= buy;
-                System.out.println("A pessoa " + this.idThread + " comprou " +ingressos+ "\n");
-                System.out.println("Há " + ingressos + " ingressos restantes \n");
+                this.ingressos -= buy;
+                System.out.println("A pessoa " + this.idThread + " comprou " +this.ingressos+ "\n");
+                System.out.println("Há " + this.ingressos + " ingressos restantes \n");
             } else {
                 System.err.println("Ingressos esgotados para a Thread #" + this.idThread + " \n");
             }
